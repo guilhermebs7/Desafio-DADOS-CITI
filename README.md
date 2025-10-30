@@ -1,98 +1,72 @@
-🧩 Desafio de Análise e Padronização de Dados — Gente e Gestão
+# 📈 Desafio de Análise e Padronização de Dados 
 
+## 👤 Contexto
 
-👤 Contexto
+Como Analista de Dados recém-chegado(a) ao time de **Gente e Gestão**, a tarefa proposta foi **analisar e padronizar uma base de dados** com informações sobre o desempenho e o engajamento dos membros da organização.  
 
-Como Analista de Dados recém-chegado(a) ao time de Gente e Gestão, a tarefa proposta foi analisar e padronizar uma base de dados com informações sobre o desempenho e o engajamento dos membros da organização.
 A base original estava despadronizada, apresentando variações de texto, tipos incorretos e valores nulos, exigindo tratamento completo antes de ser utilizada em relatórios e dashboards.
 
-🛠️ Ferramentas Utilizadas
+---
 
-Google Planilhas → Base de dados original compartilhada pela equipe.
+## 🧰 Ferramentas Utilizadas
 
-Python → Linguagem utilizada para o tratamento e padronização dos dados.
+- **Google Planilhas** → Base de dados original compartilhada pela equipe.  
+- **VS Code** → Ambiente de desenvolvimento utilizado para o tratamento e análise dos dados.  
+- **Python** → Linguagem utilizada para o tratamento e padronização dos dados.  
+- **Biblioteca Pandas** → Responsável pelas operações de limpeza, transformação e análise.  
+- **Exportação .xlsx** → Base final tratada e padronizada para visualizações e dashboards.
 
-Biblioteca Pandas → Responsável pelas operações de limpeza, transformação e análise.
+---
 
-Visual Studio Code (VS Code) → Ambiente de desenvolvimento utilizado para escrever e executar o script Python.
+## ⚙️ Etapas do Processamento
 
-CSV (.csv) → Formato intermediário de importação e exportação dos dados.
+### 1️⃣ Padronização da Coluna `Nivel_Senioridade`
+- A coluna apresentava valores inconsistentes, como *“Jr”*, *“P”*, *“pleno”*, *“N/D”*, entre outros.  
+- Todos foram **padronizados para apenas três categorias:**  
+  - `Júnior`  
+  - `Pleno`  
+  - `Sênior`  
+- Valores nulos foram preenchidos com a **moda** (categoria mais frequente).
 
-Excel (.xlsx) → Formato final entregue após o tratamento e enriquecimento da base.
+---
 
-📊 Objetivos do Desafio
+### 2️⃣ Padronização das Colunas `Avaliacao_Tecnica` e `Avaliacao_Comportamental`
+- As avaliações apresentavam números com **ponto decimal (ex: 8.5)** e alguns valores **nulos (NaN)**.  
+- Todos os valores foram convertidos para o formato numérico com **vírgula decimal (ex: 8,5)**.  
+- Valores nulos foram tratados da seguinte forma:  
+  - `Avaliacao_Tecnica` → preenchida com a **média aritmética** da coluna.  
+  - `Avaliacao_Comportamental` → preenchida com a **média aritmética** da coluna.
 
-Padronizar e corrigir informações inconsistentes na base de dados.
+---
 
-Tratar valores ausentes e uniformizar formatos numéricos e textuais.
+### 3️⃣ Tratamento da Coluna `Engajamento_PIGs`
+- A coluna estava em formato de texto (ex: `90%`, `75%`, `N/A`).  
+- Todos os valores foram convertidos para **decimal numérico** (ex: `90%` → `0.9`).  
+- Valores nulos e inválidos foram substituídos pela **média aritmética** dos valores válidos.
 
-Criar novas colunas e indicadores para enriquecer a análise de desempenho dos membros.
+---
 
-🧠 Etapas Realizadas
-1. Obtenção da Base de Dados
+### 4️⃣ Criação da Coluna `Score_Desempenho`
+- Foi criada uma nova coluna calculada com a seguinte **fórmula**:
+- 
+- Essa métrica representa o **desempenho geral** do membro, considerando o equilíbrio entre habilidades técnicas e comportamentais.
 
-A base foi disponibilizada em Google Planilhas.
-Para realizar o tratamento, o arquivo foi exportado no formato .csv e importado para o VS Code, onde foi utilizado o Python com a biblioteca Pandas para manipulação dos dados.
+---
 
-2. Análise Inicial da Base
+### 5️⃣ Criação da Coluna `Status_Membro`
+- Critério definido:  
+- Se `Score_Desempenho >= 7.0` **e** `Engajamento_PIGs >= 0.8` → **Em Destaque**  
+- Caso contrário → **Padrão**  
+- Essa etapa permitiu **classificar os membros** com base em desempenho e engajamento.
 
-Foi feita uma análise exploratória da estrutura dos dados, identificando:
+---
 
-Colunas com formatações incorretas;
+## 📊 Resultado Final
 
-Variações nos nomes de níveis de senioridade;
+- Base final exportada em formato **.xlsx** com todas as colunas tratadas e novas métricas adicionadas.  
+- Dados prontos para visualização em dashboards e relatórios de **Engajamento, Desenvolvimento e Performance**.
 
-Presença de valores ausentes e inconsistências numéricas;
 
-Tipos de dados incorretos (exemplo: números armazenados como texto).
 
-3. Padronização da Coluna “Nivel_Senioridade”
 
-A coluna apresentava variações como “Jr”, “pleno”, “S”, “N/D”, entre outras.
 
-Todos os valores foram padronizados para: “Júnior”, “Pleno” e “Sênior”.
-
-Os valores nulos foram substituídos pela moda (valor mais frequente da coluna).
-
-4. Padronização das Colunas de Avaliação
-
-As colunas Avaliacao_Tecnica e Avaliacao_Comportamental possuíam diferentes formatações (ponto, vírgula, texto).
-
-Ambas foram convertidas para valores numéricos no padrão de 0 a 10.
-
-Os valores nulos foram preenchidos com a média aritmética de cada coluna, garantindo uniformidade.
-
-5. Tratamento da Coluna “Engajamento_PIGs”
-
-Essa coluna representava a porcentagem de participação nas capacitações (PIGs).
-
-Os dados estavam em formato de texto, como “90%”, “75%” e “N/A”.
-
-Todos foram convertidos para valores decimais (exemplo: 90% → 0,9).
-
-Valores ausentes foram substituídos pela média geral da coluna.
-
-6. Cálculo do “Score_Desempenho”
-
-Foi criada uma nova métrica que representa o desempenho geral do membro, combinando igualmente as avaliações técnica e comportamental.
-
-Fórmula utilizada:
-Score_Desempenho = (Avaliacao_Tecnica × 0.5) + (Avaliacao_Comportamental × 0.5).
-
-Essa métrica trouxe uma visão equilibrada da performance de cada membro.
-
-7. Criação da Coluna “Status_Membro”
-
-O objetivo dessa coluna foi classificar os membros conforme o desempenho e engajamento.
-
-Critério utilizado:
-
-“Em Destaque” → quando o Score_Desempenho ≥ 7,0 e Engajamento_PIGs ≥ 0,8;
-
-“Padrão” → nos demais casos.
-
-Essa categorização facilita a identificação de talentos e a tomada de decisões de desenvolvimento.
-
-8. Exportação da Base Final
-
-Após todas as etapas de tratamento e enriquecimento, a base foi exportada em formato .xlsx (Excel), permitindo visualização mais amigável e integração com relatórios e dashboards.
